@@ -35,6 +35,8 @@ class UrlMonitor < Scout::Plugin
         report[:report][:match] = 1
       else
         report[:report][:match] = 0
+        report[:alerts] << {:subject => "The pattern [#{pattern}] was not detected on the website",
+                            :body => "URL: #{url}\n\nStatus: #{report[:report][:status]}"}
       end
     else 
       report[:report][:up] = 0
@@ -53,7 +55,7 @@ class UrlMonitor < Scout::Plugin
   
   # returns the http response (string) from a url
   def http_response  
-    url = @options['url']
+    url = @options['url'] || @options[:url]
 
     uri = URI.parse(url)
 
