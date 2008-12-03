@@ -1,0 +1,29 @@
+This is a (growing) collection of plugins for Scout [1], a Rails based monitoring solution
+
+
+Available Plugins
+-----------------
+
+* urlcontent
+  Based on the URL monitioring plugin by Scout, this plugin additionally checks for the prescence of a 
+  string in the response. This was triggered by an error, where a customers website was down (a GEM 
+  dependency was missing) and Phusion Passenger served an error page (with a nice description of the 
+  error). For Scout, everything looked ok - the website was still available after all ;)
+
+
+Installation
+------------
+
+Add a plugin, and use these urls:
+
+urlcontent: http://github.com/jcfischer/scout-plugins/raw/master/urlcontent/urlcontent.rb
+
+
+License
+-------
+
+(c) 2008 InVisible GmbH
+
+released under the MIT licenese
+
+[1] http://scoutapp.com

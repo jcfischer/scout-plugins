@@ -8,12 +8,15 @@ class UrlMonitor < Scout::Plugin
   TIMEOUT_LENGTH = 50 # seconds
   
   def run
-    if @options["url"].strip.length == 0
+    url = @options[:url] || @options["url"]
+    pattern = @options[:pattern] || @options["pattern"]
+
+    if url.strip.length == 0
       return { :error => { :subject => "A url wasn't provided." } }
     end
     
-    unless (@options["url"].index("http://") == 0 || @options["url"].index("https://") == 0)
-      @options["url"] = "http://" + @options["url"]
+    unless (url.index("http://") == 0 || url.index("https://") == 0)
+      url = "http://" + url
     end
 
     report = { :report => { :up     => 0, # 1 if working, 0 if not
@@ -25,7 +28,6 @@ class UrlMonitor < Scout::Plugin
     response = http_response
     report[:report][:status] = response.class.to_s
     body = response.body
-    pattern = @options["pattern"]
 
     if valid_http_response?(response)
       report[:report][:up] = 1
@@ -36,12 +38,12 @@ class UrlMonitor < Scout::Plugin
       end
     else 
       report[:report][:up] = 0
-      report[:alerts] << {:subject => "The URL [#{@options['url']}] is not responding",
-                          :body => "URL: #{@options['url']}\n\nStatus: #{report[:report][:status]}"}
+      report[:alerts] << {:subject => "The URL [#{url}] is not responding",
+                          :body => "URL: #{url}\n\nStatus: #{report[:report][:status]}"}
     end
     report
   rescue
-    { :error => { :subject => "Error monitoring url [#{@options['url']}]",
+    { :error => { :subject => "Error monitoring url [#{url}]",
                   :body    => $!.message } }
   end
   
