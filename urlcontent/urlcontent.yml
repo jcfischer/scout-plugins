@@ -1,0 +1,10 @@
+options:
+  url:
+    name: URL
+    notes: specify the URL to monitor
+    default:
+  pattern:
+    name: Pattern
+    notes: This (regexp) pattern must be present
+    default: Hello
+

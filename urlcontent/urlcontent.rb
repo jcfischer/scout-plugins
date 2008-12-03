@@ -4,7 +4,7 @@ require 'uri'
 class UrlMonitor < Scout::Plugin
   include Net
   
-  TEST_USAGE = "#{File.basename($0)} url URL last_run LAST_RUN"
+  TEST_USAGE = "#{File.basename($0)} url URL pattern PATTERN last_run LAST_RUN"
   TIMEOUT_LENGTH = 50 # seconds
   
   def run
@@ -17,6 +17,7 @@ class UrlMonitor < Scout::Plugin
     end
 
     report = { :report => { :up     => 0, # 1 if working, 0 if not
+                            :match  => 0, # if the pattern matched
                             :status => nil # the HTTP status
                           },
                :alerts => Array.new }
@@ -24,7 +25,7 @@ class UrlMonitor < Scout::Plugin
     response = http_response
     report[:report][:status] = response.class.to_s
     body = response.body
-
+    pattern = @options["pattern"]
 
     if valid_http_response?(response)
       report[:report][:up] = 1
