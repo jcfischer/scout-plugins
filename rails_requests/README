@@ -1,0 +1,21 @@
+Rails Requests Plugin
+======================
+Created by [Highgroove Studios LLC](http://www.highgroove.com)
+
+Dependencies
+------------
+
+Requires the [elif library](http://elif.rubyforge.org/):
+
+	sudo gem install elif
+	
+Options
+-------
+Both of the options are required. You must provide both the full path to the Rails log file and a maximum request length (in seconds).
+
+Compatibility 
+-------------
+
+Works on Linux and OSX.
+
+

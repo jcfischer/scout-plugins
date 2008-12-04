@@ -1,0 +1,8 @@
+options:
+  log:
+    name: Log
+    notes: The Rails log file to process
+  max_request_length:
+    name: Max Request Length (sec)
+    notes: If any request length is larger than this amount, an alert is generated
+    default: 3
