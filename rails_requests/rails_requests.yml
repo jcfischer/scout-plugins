@@ -3,6 +3,6 @@ options:
     name: Log
     notes: The Rails log file to process
   max_request_length:
-    name: Max Request Length (sec)
+    name: Max Request Length (ms)
     notes: If any request length is larger than this amount, an alert is generated
     default: 3

@@ -51,7 +51,7 @@ class RailsRequests < Scout::Plugin
           if @options["max_request_length"].to_f > 0 and last_completed.first.to_f > @options["max_request_length"].to_f
             report[:report][:slow_request_count] += 1
             slow_requests += "#{last_completed.last}\n"
-            slow_requests += "Time: " + last_completed.first.to_s + " sec" + "\n\n"
+            slow_requests += "Time: " + last_completed.first.to_s + " ms" + "\n\n"
           end
         end # request should be analyzed
       end
@@ -59,7 +59,7 @@ class RailsRequests < Scout::Plugin
     
     # Create a single alert that holds all of the requests that exceeded the +max_request_length+.
     if report[:report] and (count = report[:report][:slow_request_count].to_i and count > 0)
-      report[:alerts] << {:subject => "Maximum Time(#{@options["max_request_length"].to_s} sec) exceeded on #{count} #{count > 1 ? 'requests' : 'request'}",
+      report[:alerts] << {:subject => "Maximum Time(#{@options["max_request_length"].to_s} ms) exceeded on #{count} #{count > 1 ? 'requests' : 'request'}",
                           :body => slow_requests}
     end
     # Calculate the average request time if there are any requests
